@@ -2,6 +2,9 @@ package com.mvp.yj.study_mvp.view.main.Movie;
 
 import android.content.Context;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +27,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     Context context;
     ArrayList<MovieList> Items;
+    private static OnItemClickListener onItemClickListener;
 
     public MovieAdapter(Context context, ArrayList<MovieList> m_list) {
         this.context = context;
         this.Items = m_list;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{
@@ -47,7 +55,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         public ViewHolder(@NonNull View v) {
             super(v);
             ButterKnife.bind(this, v);
+
+//            v.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    int pos = ViewHolder.super.getAdapterPosition();
+//                    onItemClickListener.onItemClick(view, pos);
+//                }
+//            });
         }
+
+
     }
 
     @Override
@@ -64,7 +82,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         if(holder ==null) return;
         holder.m_star.setNumStars(5);
         holder.m_title.setText(Html.fromHtml(Items.get(position).getTitle()));
@@ -72,10 +90,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         holder.m_year.setText(Items.get(position).getPubDate());
         holder.m_actor.setText(Items.get(position).getActor());
         holder.m_star.setRating(Items.get(position).getUserRating()/2);
-
+        final String link = Items.get(position).getLink();
 
         String url = Items.get(position).getImage();
         Glide.with(context).load(url).into(holder.img);
+
+        // click시 web 연결
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(link));
+                context.startActivity(intent);
+            }
+        });
 
     }
 

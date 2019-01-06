@@ -85,7 +85,7 @@ public class MainActivity extends baseActivity {
                     if (response.body() != null) {
                         ArrayList<MovieList> arr = response.body().items;
                         if(arr.isEmpty()){
-                            Toast.makeText(context, "검색 결과가 없습니다.",Toast.LENGTH_SHORT).show();
+                            ShowToast("검색 결과가 없습니다");
                             return;
                         }
                         for (MovieList obj : arr) {

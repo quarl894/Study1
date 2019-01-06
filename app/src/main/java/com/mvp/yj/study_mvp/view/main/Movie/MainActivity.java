@@ -91,8 +91,9 @@ public class MainActivity extends baseActivity {
                         ArrayList<MovieList> item = response.body().items;
                         if(item.isEmpty()){
                             ShowToast("검색 결과가 없습니다");
+                            movieAdapter = new MovieAdapter(context,arr);
+                            r_view.setAdapter(movieAdapter);
                             progessOFF();
-                            return;
                         }
                         if(start>total){
                             progessOFF();

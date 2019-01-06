@@ -33,6 +33,7 @@ public class MainActivity extends baseActivity {
     RecyclerView.LayoutManager layoutManager;
     MovieAdapter movieAdapter;
     Context context;
+    ArrayList<MovieList> arr;
 
     @BindView(R.id.btn_search)
     Button btn_search;
@@ -62,7 +63,8 @@ public class MainActivity extends baseActivity {
             @Override
             public void onClick(View view) {
                 progressON("잠시만 기달려주세요...");
-                Search(edit_search.getText().toString());
+                arr = new ArrayList<>();
+                Search(edit_search.getText().toString(),1);
             }
         });
 
@@ -75,27 +77,34 @@ public class MainActivity extends baseActivity {
     }
 
     // @OnClick(R.id.btn_search)
-    public void Search(String words){
+    public void Search(String words, int page){
+        final int start = page;
+        final String str = words;
         if(words!=null) {
-            Call<Movie> call = Api.getInstance().getMovieList(words, 1);
+            Call<Movie> call = Api.getInstance().getMovieList(words, start);
 
             call.enqueue(new Callback<Movie>() {
                 @Override
                 public void onResponse(Call<Movie> call, Response<Movie> response) {
                     if (response.body() != null) {
-                        ArrayList<MovieList> arr = response.body().items;
-                        if(arr.isEmpty()){
+                        int total = response.body().total;
+                        ArrayList<MovieList> item = response.body().items;
+                        if(item.isEmpty()){
                             ShowToast("검색 결과가 없습니다");
+                            progessOFF();
                             return;
                         }
-                        for (MovieList obj : arr) {
-                            String title = obj.getTitle();
-
-                            Log.e(TAG, title);
+                        if(start>total){
+                            progessOFF();
+                            movieAdapter = new MovieAdapter(context,arr);
+                            r_view.setAdapter(movieAdapter);
                         }
-                        progessOFF();
-                        movieAdapter = new MovieAdapter(context,arr);
-                        r_view.setAdapter(movieAdapter);
+                        else{
+                            for (MovieList obj : item) {
+                                arr.add(obj);
+                            }
+                            Search(str,start+100);
+                        }
                     }
                 }
 

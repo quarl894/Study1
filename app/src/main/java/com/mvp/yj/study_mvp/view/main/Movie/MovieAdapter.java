@@ -27,15 +27,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     Context context;
     ArrayList<MovieList> Items;
-    private static OnItemClickListener onItemClickListener;
 
     public MovieAdapter(Context context, ArrayList<MovieList> m_list) {
         this.context = context;
         this.Items = m_list;
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{
@@ -55,14 +50,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         public ViewHolder(@NonNull View v) {
             super(v);
             ButterKnife.bind(this, v);
-
-//            v.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    int pos = ViewHolder.super.getAdapterPosition();
-//                    onItemClickListener.onItemClick(view, pos);
-//                }
-//            });
         }
 
 

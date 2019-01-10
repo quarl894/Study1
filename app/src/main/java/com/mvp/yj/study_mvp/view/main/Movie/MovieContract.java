@@ -2,8 +2,8 @@ package com.mvp.yj.study_mvp.view.main.Movie;
 
 import android.content.Context;
 
+import com.mvp.yj.study_mvp.listener.OnItemClickListener;
 import com.mvp.yj.study_mvp.model.MovieList;
-import com.mvp.yj.study_mvp.view.main.Movie.adapter.MovieAdapterContract;
 
 import java.util.ArrayList;
 
@@ -17,6 +17,7 @@ public interface MovieContract {
         void setDataRecyclerView(ArrayList<MovieList> movieListArrayList);
 
         void onResponseFailure(Throwable t);
+
     }
 
     interface Presenter{

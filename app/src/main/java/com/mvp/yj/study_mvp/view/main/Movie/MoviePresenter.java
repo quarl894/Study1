@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.mvp.yj.study_mvp.exception.NetworkInfo;
 import com.mvp.yj.study_mvp.model.MovieList;
-import com.mvp.yj.study_mvp.view.main.Movie.adapter.MovieAdapterContract;
 
 import java.util.ArrayList;
 
@@ -12,6 +11,7 @@ public class MoviePresenter implements MovieContract.Presenter, MovieContract.Mo
 
     private MovieContract.Model movieModel;
     private MovieContract.View movieView;
+
 
     public MoviePresenter( MovieContract.View movieView) {
         this.movieView = movieView;

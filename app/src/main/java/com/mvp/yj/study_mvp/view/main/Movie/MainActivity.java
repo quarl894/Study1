@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.mvp.yj.study_mvp.R;
 import com.mvp.yj.study_mvp.api.Api;
 import com.mvp.yj.study_mvp.exception.NetworkInfo;
+import com.mvp.yj.study_mvp.listener.OnItemClickListener;
 import com.mvp.yj.study_mvp.model.Movie;
 import com.mvp.yj.study_mvp.model.MovieList;
 import com.mvp.yj.study_mvp.view.main.base.baseActivity;
@@ -117,6 +118,4 @@ public class MainActivity extends baseActivity implements MovieContract.View{
         super.onDestroy();
         moviePresenter.onDestroy();
     }
-
-
 }

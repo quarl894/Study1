@@ -15,7 +15,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mvp.yj.study_mvp.R;
+import com.mvp.yj.study_mvp.listener.OnItemClickListener;
 import com.mvp.yj.study_mvp.model.MovieList;
+import com.mvp.yj.study_mvp.view.main.Movie.adapter.MovieAdapterContract;
 
 import java.util.ArrayList;
 
@@ -27,6 +29,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     Context context;
     ArrayList<MovieList> Items;
+    OnItemClickListener onItemClickListener;
 
     public MovieAdapter(Context context, ArrayList<MovieList> m_list) {
         this.context = context;
@@ -96,6 +99,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return Items.size();
+        return Items !=null ? Items.size() : 0;
     }
 }

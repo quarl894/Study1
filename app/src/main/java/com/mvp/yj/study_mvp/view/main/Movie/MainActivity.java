@@ -46,11 +46,7 @@ public class MainActivity extends baseActivity implements MovieContract.View{
     RotateLoading rotateLoading;
 
     private MovieContract.Presenter moviePresenter;
-    private boolean loading = true;
     private int pageNo = 1;
-    private int previousTotal = 0;
-    int firstVisibleItem, visibleItemCount, totalItemCount;
-    private int visibleThreshold = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,16 +58,6 @@ public class MainActivity extends baseActivity implements MovieContract.View{
         initRecyclerView();
 
         moviePresenter = new MoviePresenter(this);
-
-        // 검색 시작
-//        btn_search.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                progressON("잠시만 기달려주세요...");
-//                arr = new ArrayList<>();
-//                Search(edit_search.getText().toString(),1);
-//            }
-//        });
 
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +78,7 @@ public class MainActivity extends baseActivity implements MovieContract.View{
 
     @Override
     protected void onResume() {
-        NetworkInfo.getNetwork(context);
+        moviePresenter.getNetwork(this);
         super.onResume();
     }
 
@@ -132,45 +118,5 @@ public class MainActivity extends baseActivity implements MovieContract.View{
         moviePresenter.onDestroy();
     }
 
-    // @OnClick(R.id.btn_search)
-    public void Search(String words, int page){
-        final int start = page;
-        final String str = words;
-        if(words!=null) {
-            Call<Movie> call = Api.getInstance().getMovieList(words, start);
-
-            call.enqueue(new Callback<Movie>() {
-                @Override
-                public void onResponse(Call<Movie> call, Response<Movie> response) {
-                    if (response.body() != null) {
-                        int total = response.body().total;
-                        ArrayList<MovieList> item = response.body().items;
-                        if(item.isEmpty()){
-                            ShowToast("검색 결과가 없습니다");
-                            movieAdapter = new MovieAdapter(context,arr);
-                            r_view.setAdapter(movieAdapter);
-                            progessOFF();
-                        }
-                        if(start>total){
-                            progessOFF();
-                            movieAdapter = new MovieAdapter(context,arr);
-                            r_view.setAdapter(movieAdapter);
-                        }
-                        else{
-                            for (MovieList obj : item) {
-                                arr.add(obj);
-                            }
-                            Search(str,start+100);
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Movie> call, Throwable t) {
-                    Log.e("error", "" + t.getMessage());
-                }
-            });
-        }
-    }
 
 }

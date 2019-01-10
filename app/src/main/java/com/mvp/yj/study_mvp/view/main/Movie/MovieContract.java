@@ -24,6 +24,8 @@ public interface MovieContract {
 
         void getMoreDate(String words, int page);
 
+        void getNetwork(Context context);
+
         void requestFromServer(String words);
 
 

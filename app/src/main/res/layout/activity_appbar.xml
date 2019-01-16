@@ -22,13 +22,14 @@
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottom_app_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_gravity="bottom"
             app:backgroundTint="@color/colorPrimary"
             app:fabAlignmentMode="center"
             app:fabAttached="true"
-            app:navigationIcon="@android:drawable/ic_menu_add"/>
-
+            app:fabCradleVerticalOffset="15dp"
+            app:navigationContentDescription="쇼핑N페이"
+            app:navigationIcon="@android:drawable/ic_notification_clear_all"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"

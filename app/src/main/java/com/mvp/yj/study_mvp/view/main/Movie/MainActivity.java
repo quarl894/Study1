@@ -64,22 +64,21 @@ public class MainActivity extends baseActivity implements MovieContract.View{
 
         moviePresenter = new MoviePresenter(this);
 
-        btn_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setListeners(edit_search.getText().toString(), 1);
-            }
-        });
+    }
 
-        btn_jump.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    @OnClick({R.id.btn_jump, R.id.btn_search})
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.btn_jump :
                 Intent i = new Intent(context, appbarActivity.class);
                 startActivity(i);
-              //  finish();
-            }
-        });
+                finish();
+                break;
+            case R.id.btn_search :
+                setListeners(edit_search.getText().toString(), 1);
+                break;
 
+        }
     }
 
     private void initRecyclerView(){

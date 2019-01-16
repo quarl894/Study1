@@ -17,6 +17,7 @@ import com.mvp.yj.study_mvp.view.main.base.baseActivity;
 
 import java.util.zip.Inflater;
 
+import androidx.annotation.IdRes;
 import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,20 +41,19 @@ public class appbarActivity extends baseActivity {
 
         init();
 
-        btn_test.setText("what");
-
-//        fbtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                ShowToast("click the fab");
-//            }
-//        });
     }
 
 
     // Butterknife 9.0.0-rc2와 androidxd에서 error
-    @OnClick({R.id.btn_test}) void getTest(){
-       ShowToast("test");
+    @OnClick({R.id.btn_test, R.id.fab}) void getTest(View v){
+        switch(v.getId()){
+            case R.id.btn_test :
+                ShowToast("test");
+                break;
+            case R.id.fab :
+                ShowToast("fab");
+                break;
+        }
     }
 
 

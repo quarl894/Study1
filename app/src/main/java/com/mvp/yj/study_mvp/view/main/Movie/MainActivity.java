@@ -1,6 +1,7 @@
 package com.mvp.yj.study_mvp.view.main.Movie;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import com.mvp.yj.study_mvp.exception.NetworkInfo;
 import com.mvp.yj.study_mvp.listener.OnItemClickListener;
 import com.mvp.yj.study_mvp.model.Movie;
 import com.mvp.yj.study_mvp.model.MovieList;
+import com.mvp.yj.study_mvp.view.main.appbar.appbarActivity;
 import com.mvp.yj.study_mvp.view.main.base.baseActivity;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -45,6 +47,8 @@ public class MainActivity extends baseActivity implements MovieContract.View{
 
     @BindView(R.id.rotateloading)
     RotateLoading rotateLoading;
+    @BindView(R.id.btn_jump)
+    Button btn_jump;
 
     private MovieContract.Presenter moviePresenter;
     private int pageNo = 1;
@@ -64,6 +68,15 @@ public class MainActivity extends baseActivity implements MovieContract.View{
             @Override
             public void onClick(View view) {
                 setListeners(edit_search.getText().toString(), 1);
+            }
+        });
+
+        btn_jump.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(context, appbarActivity.class);
+                startActivity(i);
+              //  finish();
             }
         });
 

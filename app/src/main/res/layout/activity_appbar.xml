@@ -40,7 +40,7 @@
             app:fabAlignmentMode="center"
             app:fabAttached="true"
             app:fabCradleVerticalOffset="15dp"
-            app:navigationContentDescription="쇼핑N페이"
+            app:hideOnScroll="true"
             app:navigationIcon="@android:drawable/ic_notification_clear_all" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

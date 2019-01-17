@@ -60,6 +60,7 @@ public class appbarActivity extends baseActivity {
 
 
     public void init(){
+        bar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
         bar.replaceMenu(R.menu.appbar_menu);
         bar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override

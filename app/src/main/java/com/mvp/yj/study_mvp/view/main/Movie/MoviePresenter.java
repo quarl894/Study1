@@ -1,6 +1,7 @@
 package com.mvp.yj.study_mvp.view.main.Movie;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.mvp.yj.study_mvp.exception.NetworkInfo;
 import com.mvp.yj.study_mvp.model.MovieList;
@@ -11,6 +12,7 @@ public class MoviePresenter implements MovieContract.Presenter, MovieContract.Mo
 
     private MovieContract.Model movieModel;
     private MovieContract.View movieView;
+    static ArrayList<MovieList> arr = new ArrayList<>();
 
 
     public MoviePresenter( MovieContract.View movieView) {
@@ -19,9 +21,17 @@ public class MoviePresenter implements MovieContract.Presenter, MovieContract.Mo
         movieModel = new MovieModel();
     }
 
+    //무한스크롤 total 전체 받아오기 기존 :100 까지만 받는 것을 total만큼 받게 하기.
     @Override
-    public void OnFinished(ArrayList<MovieList> movieListArrayList, int total) {
-        movieView.setDataRecyclerView(movieListArrayList);
+    public void OnFinished(ArrayList<MovieList> movieListArrayList,String words, int total) {
+        arr.addAll(movieListArrayList);
+        if(total>arr.size()){
+            int num = arr.size()+1;
+            movieModel.getMovieList(this,words, num);
+        }else{
+            movieView.setDataRecyclerView(arr);
+        }
+
         if(movieView!=null){
             movieView.hideProgress();
         }
@@ -45,11 +55,13 @@ public class MoviePresenter implements MovieContract.Presenter, MovieContract.Mo
     @Override
     public void getMoreDate(String words, int page) {
         if(movieView!=null){
+            //초기화
+            arr.clear();
             movieView.showProgress();
         }
-
         movieModel.getMovieList(this,words,page);
-    }
+
+}
 
     //초기 데이터 가져오기
     @Override

@@ -135,4 +135,5 @@ public class MainActivity extends baseActivity implements MovieContract.View{
         super.onDestroy();
         moviePresenter.onDestroy();
     }
+
 }

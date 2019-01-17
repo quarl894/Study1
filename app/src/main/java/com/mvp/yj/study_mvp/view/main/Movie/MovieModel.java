@@ -18,7 +18,6 @@ public class MovieModel implements MovieContract.Model {
     @Override
     public void getMovieList(final OnFinishedListener onFinishedListener, String words, int page) {
         final int start = page;
-        final String str = words;
         if(words!=null) {
             Call<Movie> call = Api.getInstance().getMovieList(words, start);
 
@@ -28,7 +27,7 @@ public class MovieModel implements MovieContract.Model {
                     if (response.body() != null) {
                         int total = response.body().total;
                         ArrayList<MovieList> item = response.body().items;
-                        onFinishedListener.OnFinished(item, total);
+                        onFinishedListener.OnFinished(item,words, total);
                     }
                 }
 

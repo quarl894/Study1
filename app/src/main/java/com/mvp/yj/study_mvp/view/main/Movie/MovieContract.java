@@ -35,7 +35,7 @@ public interface MovieContract {
     interface Model{
 
         interface OnFinishedListener{
-            void OnFinished(ArrayList<MovieList>movieListArrayList, int total);
+            void OnFinished(ArrayList<MovieList>movieListArrayList, String words, int total);
 
             void onFailure(Throwable t);
         }

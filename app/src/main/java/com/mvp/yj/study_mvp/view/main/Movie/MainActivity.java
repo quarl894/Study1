@@ -95,8 +95,13 @@ public class MainActivity extends baseActivity implements MovieContract.View{
         super.onResume();
     }
 
+    //검색어 입력안했을 때 예외처리
     private void setListeners(String words, int pageNo){
-        moviePresenter.getMoreDate(words, pageNo);
+        if(words.length()>0){
+            moviePresenter.getMoreDate(words, pageNo);
+        }else{
+            ShowToast("검색어를 정확하게 입력해주세요.");
+        }
     }
 
     @Override
